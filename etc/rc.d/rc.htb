@@ -1,0 +1,50 @@
+#!/bin/sh
+# rc.htb ==> Start/stop, HTB using htb tools.
+
+case "$1" in
+
+#start HTB on eth0 and eth1
+    'start')
+    /HiToBu.sh eth0 start 
+    sleep 5
+    /HiToBu.sh eth1 start ;;
+
+#stop HTB on eth0 and eth1    
+    'stop')
+    /HiToBu.sh eth0 stop 
+    /HiToBu.sh eth1 stop ;;
+
+#start HTB on eth0    
+   'start_eth0')
+      /HiToBu.sh eth0 start ;;
+
+#stop HTB on eth0   
+   'stop_eth0')
+      /HiToBu.sh eth0 stop ;;
+
+#start HTB on eth1    
+   'start_eth1')
+      /HiToBu.sh eth1 start ;;
+
+#stop HTB on eth1
+   'stop_eth1')
+      /HiToBu.sh eth1 stop ;;
+
+#show trafic per client on eth0
+   'show_eth0')
+      /q_show -i eth0 -f /etc/config/eth0-qos.cfg ;;
+
+#show trafic per client on eth1
+   'show_eth1')
+      /q_show -i eth1 -f /etc/config/eth1-qos.cfg ;;
+
+#creates the script that applies the traffic rules for eth0
+   'gen_eth0')
+      /HiToBu.sh eth0 generate ;;
+
+#creates the script that applies the traffic rules for eth1
+   'gen_eth1')
+      /HiToBu.sh eth1 generate ;;
+   *)
+echo " Usage $0 start|stop|start_eth0|stop_eth0|start_eth1|stop_eth1|show_eth0|show_eth1|gen_eth0|gen_eth1" ;;
+esac
